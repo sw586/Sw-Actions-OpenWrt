@@ -20,8 +20,8 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/syb999/$Dir_NAME-15.05
-  Dir_NAME: $Dir_NAME-15.05
+  REPO_URL: https://github.com/syb999/openwrt-15.05
+  Dir_NAME: openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: LEDE-K2p.config
