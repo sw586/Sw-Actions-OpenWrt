@@ -52,7 +52,7 @@ jobs:
         sudo -E apt-get -qq clean
         sudo apt-get install build-essential asciidoc binutils bzip2 gawk gettext git subversion libssl-dev libncurses5-dev patch unzip zlib1g-dev libc6-dev libbz2-dev gdisk flex python
         sudo timedatectl set-timezone "$TZ"
-        sudo mkdir -p /workdir
+        #sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
     - name: Clone source code
