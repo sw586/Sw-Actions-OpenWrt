@@ -83,17 +83,7 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: SSH connection to Actions
-      uses: P3TERX/ssh2actions@main
-      with:
-        mode: ngrok
-      env:
-        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
-        NGROK_REGION: jp
-        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
-        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
+ 
     - name: Download package
       id: package
       run: |
@@ -133,6 +123,17 @@ jobs:
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
+
+    - name: SSH connection to Actions
+      uses: P3TERX/ssh2actions@main
+      with:
+        mode: ngrok
+      env:
+        NGROK_TOKEN: ${{ secrets.NGROK_TOKEN }}
+        NGROK_REGION: jp
+        SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
