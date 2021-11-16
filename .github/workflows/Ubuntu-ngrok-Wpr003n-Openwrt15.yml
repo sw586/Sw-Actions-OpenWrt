@@ -1,6 +1,6 @@
 # https://github.com/P3TERX/ActionsVM
 
-name: Ubuntu (ngrok)
+name: Ubuntu-ngrok-Wpr003n-Openwrt15
 
 on:
   workflow_dispatch:
