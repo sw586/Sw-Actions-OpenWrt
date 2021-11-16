@@ -8,7 +8,7 @@
 # Description: Build $Dir_NAME using GitHub Actions
 #
 
-name: Ubuntu-ngrok-Wpr003n-$Dir_NAME15
+name: Ubuntu-ngrok-Wpr003n
 
 on:
   repository_dispatch:
