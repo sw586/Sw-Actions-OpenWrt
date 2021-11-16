@@ -4,11 +4,11 @@
 # This is free software, licensed under the MIT License.
 # See /LICENSE for more information.
 #
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
+# https://github.com/P3TERX/Actions-$Dir_NAME
+# Description: Build $Dir_NAME using GitHub Actions
 #
 
-name: Ubuntu-ngrok-Wpr003n-Openwrt15
+name: Ubuntu-ngrok-Wpr003n-$Dir_NAME15
 
 on:
   repository_dispatch:
@@ -20,8 +20,8 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/syb999/openwrt-15.05
-  Dir_NAME: openwrt-15.05
+  REPO_URL: https://github.com/syb999/$Dir_NAME-15.05
+  Dir_NAME: $Dir_NAME-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: LEDE-K2p.config
@@ -59,35 +59,35 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH openwrt
-        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        git clone $REPO_URL -b $REPO_BRANCH $Dir_NAME
+        ln -sf /workdir/$Dir_NAME $GITHUB_WORKSPACE/$Dir_NAME
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF $Dir_NAME/feeds.conf.default
         chmod +x $DIY_P1_SH
-        cd openwrt
+        cd $Dir_NAME
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd openwrt && ./scripts/feeds update -a
+      run: cd $Dir_NAME && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd openwrt && ./scripts/feeds install -a
+      run: cd $Dir_NAME && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files openwrt/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e files ] && mv files $Dir_NAME/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $Dir_NAME/.config
         chmod +x $DIY_P2_SH
-        cd openwrt
+        cd $Dir_NAME
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
  
     - name: Download package
       id: package
       run: |
-        cd openwrt
+        cd $Dir_NAME
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -96,7 +96,7 @@ jobs:
     - name: Compile the firmware
       id: compile
       run: |
-        cd openwrt
+        cd $Dir_NAME
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "::set-output name=status::success"
@@ -112,14 +112,14 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: openwrt/bin
+        name: $Dir_NAME_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: $Dir_NAME/bin
 
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd openwrt/bin/targets/*/*
+        cd $Dir_NAME/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
@@ -139,7 +139,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: $Dir_NAME_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
