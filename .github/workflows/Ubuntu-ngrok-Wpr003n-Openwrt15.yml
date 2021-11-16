@@ -20,7 +20,8 @@ jobs:
       uses: actions/checkout@main
 
     - name: Run Start Script
-      run: Wpr003n-Openwrt15-CC-part1.sh
+     
+      run: ls && Wpr003n-Openwrt15-CC-part1.sh
 
     - name: Start SSH via ngrok
       uses: P3TERX/ssh2actions@main
