@@ -19,7 +19,7 @@ jobs:
       run: |
         git clone https://github.com/syb999/openwrt-15.05
         ls
-        cd openwrt
+        cd openwrt-15.05
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
