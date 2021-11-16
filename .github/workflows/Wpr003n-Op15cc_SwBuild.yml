@@ -134,7 +134,7 @@ jobs:
         run: ls
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         #path: ${{ env.FIRMWARE }}
-        path: openwrt/.config
+        path: openwrt/mwan3-ipk
 
     - name: Upload firmware to cowtransfer
       id: cowtransfer
