@@ -59,35 +59,43 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH $Dir_NAME
+        git clone $REPO_URL -b $REPO_BRANCH
         ln -sf /workdir/$Dir_NAME $GITHUB_WORKSPACE/$Dir_NAME
 
     - name: Load custom feeds
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF $Dir_NAME/feeds.conf.default
         chmod +x $DIY_P1_SH
-        cd "$Dir_NAME"
+        ls
+        cd $Dir_NAME
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-      run: cd "$Dir_NAME" && ./scripts/feeds update -a
+          
+      run:  |
+        ls
+        cd $Dir_NAME && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd "$Dir_NAME" && ./scripts/feeds install -a
+      run: |
+        ls
+        cd $Dir_NAME && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files $Dir_NAME/files
         [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $Dir_NAME/.config
         chmod +x $DIY_P2_SH
-        cd "$Dir_NAME"
+        ls
+        cd $Dir_NAME
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
  
     - name: Download package
       id: package
       run: |
-        cd "$Dir_NAME"
+        ls
+        cd $Dir_NAME
         make defconfig
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
@@ -96,7 +104,8 @@ jobs:
     - name: Compile the firmware
       id: compile
       run: |
-        cd "$Dir_NAME"
+        ls
+        cd $Dir_NAME
         echo -e "$(nproc) thread compile"
         make -j$(nproc) || make -j1 || make -j1 V=s
         echo "::set-output name=status::success"
@@ -119,7 +128,8 @@ jobs:
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd "$Dir_NAME"/bin/targets/*/*
+        ls
+        cd $Dir_NAME/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
