@@ -71,10 +71,10 @@ jobs:
         $GITHUB_WORKSPACE/$DIY_P1_SH
 
     - name: Update feeds
-#      run: cd openwrt && ./scripts/feeds update -a
+      #run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-#      run: cd openwrt && ./scripts/feeds install -a
+      #run: cd openwrt && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
@@ -91,13 +91,13 @@ jobs:
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
-#    - name: Download package
-#      id: package
-#      run: |
-#        cd openwrt
-#        make defconfig
-#        find dl -size -1024c -exec ls -l {} \;
-#        find dl -size -1024c -exec rm -f {} \;
+    #- name: Download package
+      #id: package
+      #run: |
+        #cd openwrt
+        #make defconfig
+        #find dl -size -1024c -exec ls -l {} \;
+        #find dl -size -1024c -exec rm -f {} \;
 
     - name: Compile the firmware
       id: compile
@@ -143,14 +143,14 @@ jobs:
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
 
-#    - name: Upload firmware to WeTransfer
-#      id: wetransfer
-#      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-#      run: |
-#        curl -fsSL git.io/file-transfer | sh
-#        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-#        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-#        echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+    - name: Upload firmware to WeTransfer
+      id: wetransfer
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
 
     - name: Generate release tag
       id: tag
