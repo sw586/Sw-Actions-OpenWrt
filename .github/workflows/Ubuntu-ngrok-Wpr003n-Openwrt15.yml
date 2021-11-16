@@ -15,16 +15,16 @@ on:
   workflow_dispatch:
     inputs:
       ssh:
-        description: 'Start SSH via ngrok'
+        description: 'SSH connection to Actions'
         required: false
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-# REPO_URL: https://github.com/syb999/openwrt-15.05
+  REPO_URL: https://github.com/syb999/openwrt-15.05
+  Dir_NAME: openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: LEDE-Wpr003n.config
+  CONFIG_FILE: LEDE-K2p.config
   DIY_P1_SH: diy-part1.sh
   DIY_P2_SH: diy-part2.sh
   UPLOAD_BIN_DIR: false
@@ -83,9 +83,8 @@ jobs:
         cd openwrt
         $GITHUB_WORKSPACE/$DIY_P2_SH
 
-    - name: Start SSH via ngrok
+    - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@main
-      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
       with:
         mode: ngrok
       env:
@@ -95,7 +94,6 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-     
     - name: Download package
       id: package
       run: |
@@ -195,6 +193,3 @@ jobs:
         delete_tags: true
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    
-
