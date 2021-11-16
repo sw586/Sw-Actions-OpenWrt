@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Wpr003n
+name: LEDE-Wpr003n
 
 on:
   repository_dispatch:
