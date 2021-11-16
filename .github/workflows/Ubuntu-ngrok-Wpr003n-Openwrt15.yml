@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Wpr003n
+name: Ubuntu-ngrok-Wpr003n-Openwrt15
 
 on:
   repository_dispatch:
