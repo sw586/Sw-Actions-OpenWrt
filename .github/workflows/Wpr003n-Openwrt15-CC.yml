@@ -58,4 +58,5 @@ jobs:
         git clone $REPO_URL -b $REPO_BRANCH
         ls
         cd $Dir_NAME
+        ls
        
