@@ -5,7 +5,7 @@
 # See /LICENSE for more information.
 #
 # https://github.com/P3TERX/Actions-Openwrt15
-# Description: Build $"$Dir_NAME" using GitHub Actions
+# Description: Build $Dir_NAME using GitHub Actions
 #
 
 name: Ubuntu-ngrok-Wpr003n-Openwrt15
@@ -21,7 +21,7 @@ on:
 
 env:
   REPO_URL: https://github.com/syb999/openwrt-15.05
-  "$Dir_NAME": openwrt-15.05
+  Dir_NAME: openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: Wpr003n-Openwrt15-CC.config
@@ -59,13 +59,12 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clone $REPO_URL -b $REPO_BRANCH $"$Dir_NAME"
-        mv openwrt-15.05 $"$Dir_NAME"
-        ln -sf /workdir/$"$Dir_NAME" $GITHUB_WORKSPACE/$"$Dir_NAME"
+        git clone $REPO_URL -b $REPO_BRANCH $Dir_NAME
+        ln -sf /workdir/$Dir_NAME $GITHUB_WORKSPACE/$Dir_NAME
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF $"$Dir_NAME"/feeds.conf.default
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF $Dir_NAME/feeds.conf.default
         chmod +x $DIY_P1_SH
         cd "$Dir_NAME"
         $GITHUB_WORKSPACE/$DIY_P1_SH
@@ -78,8 +77,8 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        [ -e files ] && mv files $"$Dir_NAME"/files
-        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $"$Dir_NAME"/.config
+        [ -e files ] && mv files $Dir_NAME/files
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE $Dir_NAME/.config
         chmod +x $DIY_P2_SH
         cd "$Dir_NAME"
         $GITHUB_WORKSPACE/$DIY_P2_SH
@@ -113,8 +112,8 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
-        name: $"$Dir_NAME"_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: $"$Dir_NAME"/bin
+        name: $Dir_NAME_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: $Dir_NAME/bin
 
     - name: Organize files
       id: organize
@@ -140,7 +139,7 @@ jobs:
       uses: actions/upload-artifact@main
       if: steps.organize.outputs.status == 'success' && !cancelled()
       with:
-        name: $"$Dir_NAME"_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        name: $Dir_NAME_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
     - name: Upload firmware to cowtransfer
