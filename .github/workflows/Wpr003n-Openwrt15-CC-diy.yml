@@ -11,24 +11,5 @@ jobs:
     - name: Clone source code
       run: |
         git clone https://github.com/syb999/openwrt-15.05
+        ls
         cd openwrt
-        ./scripts/feeds update -a
-        ./scripts/feeds install -a
-    - name: Generate config file
-      run: |
-        cd openwrt-15.05
-        make defconfig
-    - name: Download package
-      run: |
-        cd openwrt && make download -j8
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
-    - name: Build
-      run: |
-        cd openwrt
-        make -j$(nproc)
-    - name : Upload artifact
-      uses: actions/upload-artifact@master
-      with:
-        name: OpenWrt
-        path: openwrt/bin
