@@ -19,10 +19,6 @@ jobs:
     - name: Checkout
       uses: actions/checkout@main
 
-    - name: Run Start Script
-     
-      run: ls && Wpr003n-Openwrt15-CC-part1.sh
-
     - name: Start SSH via ngrok
       uses: P3TERX/ssh2actions@main
       if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
@@ -35,5 +31,4 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
-    - name: Run End Script
-      run: Wpr003n-Openwrt15-CC-part2.sh
+
