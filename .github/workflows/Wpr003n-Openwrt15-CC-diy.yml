@@ -11,15 +11,10 @@ jobs:
   build:
     runs-on: ubuntu-18.04
     steps:
-    - name: Installation depends
-      run: |
-        sudo apt-get update
-        sudo apt-get install build-essential asciidoc binutils bzip2 gawk gettext git subversion libssl-dev libncurses5-dev patch unzip zlib1g-dev libc6-dev libbz2-dev gdisk flex
     - name: Clone source code
       run: |
-        git clone https://github.com/syb999/openwrt-15.05
+        git clone https://github.com/syb999/openwrt-15.05 openwrt
         ls
-        cd openwrt-15.05
         
     - name: SSH connection to Actions
       uses: P3TERX/ssh2actions@v1.0.0
