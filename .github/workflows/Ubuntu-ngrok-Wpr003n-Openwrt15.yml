@@ -79,7 +79,7 @@ jobs:
 
     - name: Load custom configuration
       run: |
-        mv $CONFIG_FILE $Dir_NAME/.config
+        mv $CONFIG_FILE $Dir_NAME/z123456.config
  
     - name: Compile the firmware
       id: compile
