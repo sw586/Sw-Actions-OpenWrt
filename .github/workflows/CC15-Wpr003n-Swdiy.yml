@@ -23,9 +23,9 @@ env:
   REPO_URL: https://github.com/syb999/openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: Wpr003n-Openwrt15-CC-part1.sh
-  DIY_P1_SH: Wpr003n-Openwrt15-CC-part2.sh
-  DIY_P2_SH: Wpr003n-Openwrt15-CC.config
+  CONFIG_FILE: Wpr003n-Openwrt15-CC.config
+  DIY_P1_SH: Wpr003n-Openwrt15-CC-part1.sh
+  DIY_P2_SH: Wpr003n-Openwrt15-CC-part2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
