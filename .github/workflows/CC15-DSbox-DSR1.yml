@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: CC15-Wpr003n-Swdiy
+name: CC15-DSbox-DSR1
 
 on:
   repository_dispatch:
