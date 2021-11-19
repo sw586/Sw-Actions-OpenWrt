@@ -24,7 +24,8 @@ env:
  #REPO_URL: https://github.com/syb999/openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: LEDE-DSbox DSR1.config
+  #CONFIG_FILE: LEDE-DSbox DSR1.config
+  CONFIG_FILE: jian-k2p.config
   DIY_P1_SH: LEDE-DSbox DSR11.sh
   DIY_P2_SH: LEDE-DSbox DSR12.sh
   UPLOAD_BIN_DIR: false
