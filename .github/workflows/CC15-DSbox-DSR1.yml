@@ -24,8 +24,8 @@ env:
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
   CONFIG_FILE: CC15-DSbox-DSR1.config
-  DIY_P1_SH: CC15-DSbox-DSR1-1.sh
-  DIY_P2_SH: CC15-DSbox-DSR1-2.sh
+  DIY_P1_SH: LEDE-DSbox-DSR1-1.sh
+  DIY_P2_SH: LEDE-DSbox-DSR1-2.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
@@ -45,7 +45,6 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo apt-get install build-essential asciidoc binutils bzip2 gawk gettext git subversion libssl-dev libncurses5-dev patch unzip zlib1g-dev libc6-dev libbz2-dev gdisk flex python
         sudo timedatectl set-timezone "$TZ"
         sudo mkdir -p /workdir
