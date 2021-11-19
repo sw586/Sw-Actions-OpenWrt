@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: LEDE-Wpr003n
+name: LEDE-DSbox DSR1
 
 on:
   repository_dispatch:
@@ -20,13 +20,13 @@ on:
         default: 'false'
 
 env:
-  REPO_URL: https://github.com/coolsnowwolf/lede
-# REPO_URL: https://github.com/syb999/openwrt-15.05
+  REPO_URL: https://github.com/helenpayne/lede
+ #REPO_URL: https://github.com/syb999/openwrt-15.05
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: LEDE-Wpr003n.config
-  DIY_P1_SH: diy-part1.sh
-  DIY_P2_SH: diy-part2.sh
+  CONFIG_FILE: LEDE-DSbox DSR1.config
+  DIY_P1_SH: LEDE-DSbox DSR11.sh
+  DIY_P2_SH: LEDE-DSbox DSR12.sh
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
   UPLOAD_COWTRANSFER: false
