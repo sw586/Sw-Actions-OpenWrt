@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: LEDE-DSbox DSR1
+name: Op18-DSbox-DSR1
 
 on:
   repository_dispatch:
