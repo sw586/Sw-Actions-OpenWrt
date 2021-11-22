@@ -8,7 +8,7 @@
 # Description: Build OpenWrt using GitHub Actions
 #
 
-name: Op19-DSbox-DSR1
+name: OP19-DSbox-DSR1
 
 on:
   repository_dispatch:
