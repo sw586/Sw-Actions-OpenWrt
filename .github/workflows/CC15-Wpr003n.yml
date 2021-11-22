@@ -54,7 +54,7 @@ jobs:
       working-directory: /workdir
       run: |
         df -hT $PWD
-        git clonehttps://github.com/syb999/openwrt-15.05
+        git clone https://github.com/syb999/openwrt-15.05
         ls
         mv openwrt-15.05 openwrt
         ls
