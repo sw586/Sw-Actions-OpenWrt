@@ -87,12 +87,8 @@ jobs:
       id: compile
       run: |
         cd openwrt
-        echo -e "$(nproc) thread compile"
         make V=99
         echo "::set-output name=status::success"
-    - name: Check space usage
-      if: (!cancelled())
-      run: df -hT
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main
@@ -106,9 +102,6 @@ jobs:
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
         ls
-        cd openwrt/bin/
-        ls
-  
         echo "::set-output name=status::success"
     - name: Upload firmware directory
       uses: actions/upload-artifact@main
